@@ -21,28 +21,21 @@ let connection = mysql.createConnection({
 
 connection.connect(function (err) {
     if (err) throw err;
-    console.log("connected as id " + connection.threadId);
     viewItems();
 });
 
-
-//prompt user to input the ID of the product they would like to buy
-//prompt the user to ask how many units of the product they would like to buy
+//function for viewing product offering and gathering customer input
 function viewItems() {
     connection.query("SELECT * FROM products", function (err, result) {
         if (err) throw err;
-        console.table(result);       
-        
-        var products = result.map(function(item) {
-            return {name: item.product_name, value: item.item_id};
+        console.table(result);
+
+//goes through all result options and creates a name value pair for customers product selection
+        var products = result.map(function (item) {
+            return { name: item.product_name, value: item.item_id };
         })
 
-        // for (let i = 0; i < products.length; i++) {
-        //     console.log(products[i]);
-        // }
-
-        // TODO: change to for loop array for product name instead of hard coded
-
+//prompts user to input the product they would like to buy
         inquirer
             .prompt([
                 {
@@ -55,41 +48,12 @@ function viewItems() {
             ])
             .then(function (productResponse) {
                 if (err) throw err;
-                console.log(productResponse);
+                // console.log(productResponse);
                 var product_id = productResponse.userChoice;
 
-                if (productResponse.userChoice === "MAC lipstick") {
-                    console.log("Pout love!");
+                console.log(result[product_id - 1].messages);
 
-                } else if (productResponse.userChoice === "Flower Bomb") {
-                    console.log("You smell wonderful");
-
-                } else if (productResponse.userChoice === "AGL flats") {
-                    console.log("Made in Italy, love the shoes!");
-
-                } else if (productResponse.userChoice === "MAC eye shadow") {
-                    console.log("Lovely!");
-
-                } else if (productResponse.userChoice === "Marc Jacobs Hobo Bag") {
-                    console.log("Marc would be proud of your selection");
-
-                } else if (productResponse.userChoice === "coffee beans") {
-                    console.log("The best part of waking up is coffee in your cup");
-
-                } else if (productResponse.userChoice === "mug") {
-                    console.log("Be sure to buy some coffee beans to fill this cup with!");
-
-                } else if (productResponse.userChoice === "setting powder") {
-                    console.log("Let your personality shine, not your face");
-
-                } else if (productResponse.userChoice === "Joe Jeans") {
-                    console.log("Good enough for Joe, good enough for you.");
-
-                } else if (productResponse.userChoice === "Zoya") {
-                    console.log("You're going to love this polish!");
-
-                }
-
+//prompts user to find out how many units of the product they would like to buy
                 inquirer
                     .prompt([
                         {
@@ -98,68 +62,45 @@ function viewItems() {
                             name: "requestedQuantity"
                         }
                     ])
-
+//function that checks the available quantity against the requested quantity and acts accordingly
                     .then(function (answer) {
-
                         var requestedQuantity = answer.requestedQuantity;
-                        console.log(requestedQuantity);
-                        
-
-                        // check how much stock there is for the chosen item
-                        //TODO: working in Workbench, however may be where the error is coming from
+// check how much stock there is for the chosen item
                         connection.query("SELECT * FROM products WHERE item_id=?", product_id, function (err, result) {
                             if (err) throw err;
-                            console.log(result);
                             var actualQuantity = result[0].stock_quantity;
-                            console.log(actualQuantity);
+                            var price = result[0].price;
 
-
-                            // determine if there is enough in stock to meet the customers desired quantity
+//determines if there is enough in stock to meet the customers desired quantity
                             if (requestedQuantity <= actualQuantity) {
-                                // have enough stock, tell customer their order if fulfilled
-
-
+                                
+//if have enough stock, update the available stock quantity and tell customer their total and that their order is fulfilled
+                                var newQuantity = actualQuantity - requestedQuantity;
+                                var totalPrice = requestedQuantity * price;
                                 connection.query("UPDATE products SET ? WHERE ?",
                                     [
                                         {
-                                            stock_quantity: actualQuantity - requestedQuantity
+                                            stock_quantity: newQuantity
                                         },
                                         {
                                             item_id: product_id
                                         }
                                     ],
-
-                                    console.log("Your order has been placed!"));
-
-                                // answer();
-
+                                    console.log("Your order has been placed! Your total is $" + totalPrice + "."));
                             }
 
+// not enough stock, sorry customer message
                             else {
-                                // not enough stock, sorry customer message
                                 console.log("Sorry we don't have enough in stock to fulfill your order.");
-                                // answer();
                             }
-
+                            connection.end();
                         }
                         );
-
                     }
                     )
             }
-
-
-                //once user has ordered run check quantity function to see if you have enough inventory to fulfill the order
-
-                //compare user input requestedQuantity to stock_quantity, if >, message "sorry insufficient stock" and connection.end
-
-
-
-                //if not, "Insufficient quantity!", and prevent the order from going thorugh
-                //else fulfill the customers order
-                //update the SQL database to change quantity
-                //show the customer the total cost of their purchase}
-
             )
     })
 }
+
+//*IMPORTANT* To initialize or reset bamazon DB, execute the bamazon.sql file content in a MySQL CLI or Workbench. 
