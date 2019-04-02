@@ -30,12 +30,12 @@ function viewItems() {
         if (err) throw err;
         console.table(result);
 
-//goes through all result options and creates a name value pair for customers product selection
+        //goes through all result options and creates a name value pair for customers product selection
         var products = result.map(function (item) {
             return { name: item.product_name, value: item.item_id };
         })
 
-//prompts user to input the product they would like to buy
+        //prompts user to input the product they would like to buy
         inquirer
             .prompt([
                 {
@@ -53,7 +53,7 @@ function viewItems() {
 
                 console.log(result[product_id - 1].messages);
 
-//prompts user to find out how many units of the product they would like to buy
+                //prompts user to find out how many units of the product they would like to buy
                 inquirer
                     .prompt([
                         {
@@ -62,19 +62,19 @@ function viewItems() {
                             name: "requestedQuantity"
                         }
                     ])
-//function that checks the available quantity against the requested quantity and acts accordingly
+                    //function that checks the available quantity against the requested quantity and acts accordingly
                     .then(function (answer) {
                         var requestedQuantity = answer.requestedQuantity;
-// check how much stock there is for the chosen item
+                        // check how much stock there is for the chosen item
                         connection.query("SELECT * FROM products WHERE item_id=?", product_id, function (err, result) {
                             if (err) throw err;
                             var actualQuantity = result[0].stock_quantity;
                             var price = result[0].price;
 
-//determines if there is enough in stock to meet the customers desired quantity
+                            //determines if there is enough in stock to meet the customers desired quantity
                             if (requestedQuantity <= actualQuantity) {
-                                
-//if have enough stock, update the available stock quantity and tell customer their total and that their order is fulfilled
+
+                                //if have enough stock, update the available stock quantity and tell customer their total and that their order is fulfilled
                                 var newQuantity = actualQuantity - requestedQuantity;
                                 var totalPrice = requestedQuantity * price;
                                 connection.query("UPDATE products SET ? WHERE ?",
@@ -89,7 +89,7 @@ function viewItems() {
                                     console.log("Your order has been placed! Your total is $" + totalPrice + "."));
                             }
 
-// not enough stock, sorry customer message
+                            // not enough stock, sorry customer message
                             else {
                                 console.log("Sorry we don't have enough in stock to fulfill your order.");
                             }
