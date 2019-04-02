@@ -11,7 +11,7 @@ As the user, you will need to do the following to use Bamazon:
 * From here, start by typing ‘node bamazon.js’ into your terminal. You will then see a table showing the available items along with the price per unit and additional product information. Move through the item list with your up and down keys and hit enter on the desired item. You will then be prompted to input how many (the quantity) of the item you would like to purchase. If there isn’t enough stock, sorry… If there is, great! Your order is placed and you will be presented with the total for your purchase. Keep an eye on the quantity count in the table. If there was enough stock and you place an order, the total quantity will decrease. If there wasn’t enough stock and therefore an order was not placed, the total quantity will not reduce. 
 
 ## Video How To
-TODO:INSTERT VIDEO URL
+https://drive.google.com/file/d/1a3RDi68hIO8KfegXT7UNR10mz6X1YT_D/view
 
 ## Components Used
 * JavaScript

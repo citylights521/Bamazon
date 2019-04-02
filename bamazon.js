@@ -1,8 +1,8 @@
 // JavaScript
 
 //include required package(s)
-//TODO: add to ReadMe: user run: npm install 
-//TODO: add to ReadME: user input own mysql password in js file (password section)
+//TODO: user run: npm install 
+//TODO: user input own mysql password in js file (password section)
 
 let mysql = require("mysql");
 let inquirer = require("inquirer");
@@ -103,4 +103,4 @@ function viewItems() {
     })
 }
 
-//*IMPORTANT* To initialize or reset bamazon DB, execute the bamazon.sql file content in a MySQL CLI or Workbench. 
+//User *IMPORTANT* To initialize or reset bamazon DB, execute the bamazon.sql file content in a MySQL CLI or Workbench. 
