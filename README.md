@@ -13,6 +13,9 @@ As the user, you will need to do the following to use Bamazon:
 ## Video How To
 https://drive.google.com/file/d/1a3RDi68hIO8KfegXT7UNR10mz6X1YT_D/view
 
+## GitHub Link
+https://github.com/citylights521/Bamazon
+
 ## Components Used
 * JavaScript
 * MySQL npm package
