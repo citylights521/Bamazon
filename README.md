@@ -33,4 +33,4 @@ https://github.com/citylights521/Bamazon
 Claire Gibeau
 
 ## Feedback
-The most time-consuming part of this project was making the inventory total adjust according to the customer input. This entailed comparing the quantity the customer requested of a product to the number available, changing the number if appropriate, and then returning the purchase total if there was sufficient stock available. 
+Bamazon is a back-end only app.
