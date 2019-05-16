@@ -31,4 +31,4 @@ https://github.com/citylights521/Bamazon
 Claire Gibeau
 
 ## Feedback
-This was my first time working in My.SQL. It was interesting to see how you can manipulate and call upon the information input in Workbench (My.SQL GUI). The most time-consuming part of this project was making the inventory total adjust according to the customer input. This entailed comparing the quantity the customer requested of a product to the number available, changing the number if appropriate, and then returning the purchase total if there was sufficient stock available. 
+The most time-consuming part of this project was making the inventory total adjust according to the customer input. This entailed comparing the quantity the customer requested of a product to the number available, changing the number if appropriate, and then returning the purchase total if there was sufficient stock available. 
