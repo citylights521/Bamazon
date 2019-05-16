@@ -1,6 +1,8 @@
 # Bamazon
 So many things to buy, so little time! Use Bamazon for your online shopping at the time that is convenient for YOU. 
 
+![Image of Bamazon](/Bamazon.PNG)
+
 ## How to Use
 Bamazon uses the MySQL and Inquirer npm packages to create an Amazon-like storefront with a Nordstrom-like product offering. It takes in customer orders and updates the stores inventory/stock accordingly. Be sure to look for the message that comes with every purchase request! 
 As the user, you will need to do the following to use Bamazon:
